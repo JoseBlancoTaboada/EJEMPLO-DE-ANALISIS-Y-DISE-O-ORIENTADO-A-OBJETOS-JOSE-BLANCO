@@ -1,0 +1,169 @@
+@startuml
+
+ Class Empresa {
+
+- String nit;
+
+- String nombre;
+
+- String tipo;
+
+- String web;
+
+- int telefono;
+
+- String email;
+
+- String direccion;
+
+- List<Empleado> listaDeEmpleados;
+
+- List<Proyecto> listaDeProyectos;
+}
+
+class Proyecto {
+
+- String nombreClave;
+
+- String denominacion;
+
+- Date fechalnicio;
+
+- Date fechaFin;
+
+- String estado;
+
+- Empresa empresa;
+
+- Promotor empleadoPromotor;
+
+- List<Empleado> listaDeEmpleados;
+
+- List<Tarea> listaDeTareas;
+}
+
+Class Empleado {
+
+# String dni;
+
+# String nombre;
+
+# String apellidos;
+
+# String dirección;
+
+# String teléfono;
+
+# String email;
+
+# Date fechaContrato;
+
+# Empresa empresa;
+
+# List<Proyecto> listaDeProyectos;
+
+# List<Tarea> listaDeTareas;
+}
+
+class Promotor {
+
+- List<Proyecto> listaDeProyectos;
+}
+
+class Tarea {
+
+- String descripción;
+
+- String tipo;
+
+- Date fechaInicioEstimado;
+
+- Date fechalnicioreal;
+
+- int duraciónEstimada;
+
+- int duraciónReal;
+
+- List<Empleado> listaDeEmpleados;
+
+- Proyecto proyecto;
+
+- List<Documento> listaDeDocumentos;
+}
+
+class Documento {
+
+- String codigo;
+
+- String descripcion;
+
+- String tipo;
+
+- Tarea tarea;
+
+- List<Version> listaDeVersiones;
+}
+
+class Version {
+
+- Date fecha;
+
+- String descripicion;
+
+- File archivo;
+
+- Documento documento;
+
+}
+
+class ManoDeObra {
+
+- Empleado trabajador;
+
+- Proyecto proyecto;
+
+- Date FechaInicio;
+
+- Date FechaFin;
+
+- String rol;
+
+}
+
+class PlanDeTrabajo{
+
+- Tarea tarea;
+
+- Empleado trabajador;
+
+- Date FechaInicio;
+
+- Date FechaFin;
+
+- String descripcion;
+
+}
+
+Empleado "*" -- "1" Empresa : Trabaja 
+
+Empleado <|-- Promotor : Es un 
+
+Proyecto "*" -- "1" Empresa : Tiene
+ 
+Proyecto "*" -- "1" Promotor : Promueve
+ 
+Proyecto "1" -- "*" Tarea : Conformado
+ 
+Tarea "1" -- "*" Documento : Genera
+ 
+Documento "1" -- "*" Version : Tiene
+ 
+Empleado "*" -- "*" Proyecto : Trabaja
+ 
+(Empleado, Proyecto) .. ManoDeObra
+ 
+Empleado "*" -- "*" Tarea : Realiza
+ 
+(Empleado, Tarea) .. PlanDeTrabajo 
+
+@enduml
